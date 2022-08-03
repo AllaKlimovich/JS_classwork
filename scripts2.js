@@ -1,0 +1,1 @@
+console.log ('Приветик от scripts2.js!');
