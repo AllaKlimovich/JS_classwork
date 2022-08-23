@@ -172,7 +172,107 @@ user1.setName = function(name){
 }
 
 console.log(user1);
-
+ 
 user1.setName('LolaLola'); 
 console.log(user1);
+//user1.hello();
+
+ 
+// Пример (аналагично примерам выше) 
+//  (this - доступ к текущему объекту (к его свойствам) к самому себе через "меня")
+  
+user1.hello = function (){
+    alert('Привет! Меня зовут ' + this.name);
+}
+
+user1.setName = function(name){
+    this.name = name;
+}
+
+user1.setName('Dmitriy');
 user1.hello();
+
+//создание объекта через функции прототипов
+
+let User = function() {     //создаем функцию-конструктор
+    this.name = 'NoName';
+    this.age = 0;
+    this.canWalk = false;
+}; 
+
+let userAlex = new User(),  //создаем объект на основе функции-конструктора (их может быто сколько угодно)
+    userBob = new User(),
+    userMike = new User();
+
+console.log(userAlex);
+console.log(userBob);
+console.log(userMike);
+
+// добавим имя
+
+userAlex.name = 'Alex';
+userBob.name = 'Bob';
+userMike.name = 'Mike';
+
+console.log(userAlex);
+console.log(userBob);
+console.log(userMike);
+
+
+// создаем функцию-конструктор Animal
+
+let Animal = function (name, walk){
+    this.name = name;
+    this.canWalk = walk;
+};
+
+let cat = new Animal('Кот', true),
+    dog = new Animal('Собака', true);
+
+console.log(cat);
+console.log(dog);
+
+cat.canTalk = 'Мяу-Мяу';
+dog.canTalk = 'Гав-Гав';
+
+console.log(cat);
+console.log(dog);
+
+
+// создаем функцию-конструктор Calc
+
+let Calc = function(a, b) {  
+    this.get = function (){  //метод получает у пользователя инфу по числу a,b
+        this.a = +prompt('Введите число a');
+        this.b = +prompt('Введите число b');
+        this.oper = prompt('Введите операцию: +, -, *, /');
+
+        this.operation();
+    };
+
+    this.operation = function(){ //метод операции 
+        switch(this.oper) {
+            case '+':
+                this.result = this.a + this.b;
+            break;
+            case '-':
+                this.result = this.a - this.b;
+            break;
+            case '*':
+                this.result = this.a * this.b;
+            break;
+            case '/':
+                this.result = this.a / this.b;
+            break;
+            default: this.result = 0;
+        }
+        this.show();
+    };
+
+    this.show = function (){ // метод результат
+        alert(this.a + ' ' + this.oper + ' ' + this.b + ' ' + '=' + ' ' + this.result);
+    };
+};
+
+let calc = new Calc();  // создаем объект 
+calc.get(); //вызываем объект
